@@ -2,6 +2,7 @@ import math
 from sympy import Point, Line, Segment
 
 import Barrier
+from Station import Station
 
 
 class Robot:
@@ -23,17 +24,24 @@ class Robot:
     def rotate(self, angle):
         self.angle += angle
 
-    def checkFront(self, barriers: list[Barrier]) -> float:
-        view_segment = Segment(Point(self.x, self.y), Point(self.x + math.cos(self.angle) * self.view_distance,
-                                                            self.y + math.sin(self.angle) * self.view_distance))
-        ret_val = 1000000000
+    def check_front(self, barriers: list[Barrier]) -> float:
+        view_segment = self.__get_view_vector()
+        retval = 1000000000
         for barrier in barriers:
             for wall in barrier.walls:
                 b_segment = Segment(Point(wall.start_point), Point(wall.finish_point))
                 points: list[Point] = view_segment.intersection(b_segment)
                 for point in points:
-                    ret_val = min(ret_val, point.distance(Point(self.x, self.y)))
+                    retval = min(retval, point.distance(Point(self.x, self.y)))
 
-        if ret_val == 1000000000:
+        if retval == 1000000000:
             return -1
-        return ret_val
+        return retval
+
+    def get_angle_to_station(self, station: Station):
+        toStationVec = Line(Point(self.x, self.y), Point(station.x, station.y))
+        return toStationVec.smallest_angle_between(self.__get_view_vector())
+
+    def __get_view_vector(self):
+        return Segment(Point(self.x, self.y), Point(self.x + math.cos(self.angle) * self.view_distance,
+                                                    self.y + math.sin(self.angle) * self.view_distance))
