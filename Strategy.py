@@ -4,8 +4,8 @@ import Robot
 import Station
 import Barrier
 
-FORWARD_STEP = 0.5
-LEFT_ROTATE = math.pi / 2
+FORWARD_STEP = 1
+LEFT_ROTATE = -math.pi / 10
 
 
 class Strategy:
@@ -22,7 +22,7 @@ class Strategy:
         if self.robot.on_station(self.station):
             print("Заряжаюсь...")
             return
-        if self.robot.check_front(self.barriers) == -1:
+        if self.robot.check_front(self.barriers) > self.robot.view_distance:
             self.robot.forward(FORWARD_STEP)
             print("Вижу цель, не вижу препятствий...")
             return

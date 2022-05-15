@@ -10,12 +10,14 @@ class Robot:
     y: float
     angle: float
     view_distance: float
+    radius: float
 
-    def __init__(self, x, y, angle, view_distance):
+    def __init__(self, x, y, angle, view_distance, radius):
         self.y = y
         self.x = x
         self.angle = angle
         self.view_distance = view_distance
+        self.radius = radius
 
     def forward(self, dist):
         self.y += math.sin(self.angle) * dist
@@ -34,8 +36,6 @@ class Robot:
                 for point in points:
                     retval = min(retval, float(point.distance(Point(self.x, self.y))))
 
-        if retval == 1000000000:
-            return -1
         return retval
 
     def get_angle_to_station(self, station: Station):
@@ -47,4 +47,4 @@ class Robot:
                                                     self.y + math.sin(self.angle) * self.view_distance))
 
     def on_station(self, station: Station) -> bool:
-        return Point(self.x, self.y).distance(station.position) < 0.1
+        return Point(self.x, self.y).distance(station.position) <= self.radius
