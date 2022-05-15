@@ -39,9 +39,12 @@ class Robot:
         return retval
 
     def get_angle_to_station(self, station: Station):
-        toStationVec = Line(Point(self.x, self.y), Point(station.x, station.y))
+        toStationVec = Line(Point(self.x, self.y), station.position)
         return float(toStationVec.angle_between(self.get_view_vector()))
 
     def get_view_vector(self):
         return Segment(Point(self.x, self.y), Point(self.x + math.cos(self.angle) * self.view_distance,
                                                     self.y + math.sin(self.angle) * self.view_distance))
+
+    def on_station(self, station: Station) -> bool:
+        return Point(self.x, self.y).distance(station.position) < 0.1

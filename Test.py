@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     # print('//////')
 
-    st = Station(-10, 1)  # +
+    st = Station(Point(-10, 1))  # +
 
     print(r.get_view_vector())  # +
     print(r.get_angle_to_station(st))  # + возвращаем float
@@ -29,3 +29,5 @@ if __name__ == "__main__":
 
     # print(b.walls)
     print(r1.check_front([b]))  # +
+
+    print(r1.on_station(Station(Point(2, 0.05))))
