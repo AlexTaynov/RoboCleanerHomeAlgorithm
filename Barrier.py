@@ -1,17 +1,18 @@
+from sympy import Point
 
 
 class Wall:
-    start_point: list[float]  # пример точки старта: [x1,y1]
-    finish_point: list[float]  # [x2,y2]
+    start_point: Point
+    finish_point: Point
 
-    # Wall([x1,y1],[x2,y2])
+    # Wall(Point(x1,y1),Point(x2,y2))
     def __init__(self, start_point, finish_point):
         self.finish_point = finish_point
         self.start_point = start_point
 
 
 class Barrier:
-    walls: list[Wall]
+    walls: [Wall]
 
     def __init__(self, walls):
         self.walls = walls

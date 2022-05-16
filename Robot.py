@@ -10,12 +10,14 @@ class Robot:
     y: float
     angle: float
     view_distance: float
+    radius: float
 
-    def __init__(self, x, y, angle, view_distance):
+    def __init__(self, x, y, angle, view_distance, radius):
         self.y = y
         self.x = x
         self.angle = angle
         self.view_distance = view_distance
+        self.radius = radius
 
     def forward(self, dist):
         self.y += math.sin(self.angle) * dist
@@ -24,24 +26,25 @@ class Robot:
     def rotate(self, angle):
         self.angle += angle
 
-    def check_front(self, barriers: list[Barrier]) -> float:
-        view_segment = self.__get_view_vector()
+    def check_front(self, barriers: [Barrier]) -> float:
+        view_segment = self.get_view_vector()
         retval = 1000000000
         for barrier in barriers:
             for wall in barrier.walls:
                 b_segment = Segment(Point(wall.start_point), Point(wall.finish_point))
-                points: list[Point] = view_segment.intersection(b_segment)
+                points: [Point] = view_segment.intersection(b_segment)
                 for point in points:
-                    retval = min(retval, point.distance(Point(self.x, self.y)))
+                    retval = min(retval, float(point.distance(Point(self.x, self.y))))
 
-        if retval == 1000000000:
-            return -1
         return retval
 
     def get_angle_to_station(self, station: Station):
-        toStationVec = Line(Point(self.x, self.y), Point(station.x, station.y))
-        return toStationVec.smallest_angle_between(self.__get_view_vector())
+        toStationVec = Line(Point(self.x, self.y), station.position)
+        return float(toStationVec.angle_between(self.get_view_vector()))
 
-    def __get_view_vector(self):
+    def get_view_vector(self):
         return Segment(Point(self.x, self.y), Point(self.x + math.cos(self.angle) * self.view_distance,
                                                     self.y + math.sin(self.angle) * self.view_distance))
+
+    def on_station(self, station: Station) -> bool:
+        return Point(self.x, self.y).distance(station.position) <= self.radius

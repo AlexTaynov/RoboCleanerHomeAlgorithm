@@ -1,7 +1,18 @@
-class Station:
-    x: float
-    y: float
+from sympy import Point
+import json
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+
+class Station:
+    position: Point
+
+    # def __init__(self, point: Point):
+    #     self.position = point
+    #
+    # def __init__(self, data: dict):
+    #     self.position = Point(data["station"]["x"], data["station"]["x"])
+
+    def __init__(self, *args):
+        if isinstance(args[0], Point):
+            self.position = args[0]
+        elif isinstance(args[0], dict):
+            self.position = Point(args[0]["station"]["x"], args[0]["station"]["y"])
