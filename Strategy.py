@@ -30,3 +30,7 @@ class Strategy:
             self.robot.rotate(LEFT_ROTATE)
             print("Эх.. Впереди преграда. Иду налево")
             return
+
+    def update_and_get_state(self):
+        self.update()
+        return Robot.RobotState(self.robot, self.station)

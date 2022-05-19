@@ -48,3 +48,25 @@ class Robot:
 
     def on_station(self, station: Station) -> bool:
         return Point(self.x, self.y).distance(station.position) <= self.radius
+
+
+class RobotState:
+    x: float
+    y: float
+    angle: float
+    view_distance: float
+    radius: float
+    view_vector: Segment
+    onStation: bool
+
+    def __init__(self, robot: Robot, st: Station):
+        self.x = robot.x
+        self.y = robot.y
+        self.angle = robot.angle
+        self.view_distance = robot.view_distance
+        self.radius = robot.radius
+        self.view_vector = robot.get_view_vector()
+        self.onStation = robot.on_station(st)
+
+    def is_stop(self):
+        return self.onStation
