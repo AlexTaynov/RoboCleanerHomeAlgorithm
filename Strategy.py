@@ -1,3 +1,4 @@
+import logging
 import math
 
 import Robot
@@ -13,6 +14,8 @@ class Strategy:
     station: Station
     barriers: [Barrier]
 
+    steps_remaining = 0
+
     def __init__(self, robot: Robot, station: Station, barriers: [Barrier]):
         self.robot = robot
         self.station = station
@@ -20,15 +23,20 @@ class Strategy:
 
     def update(self):
         if self.robot.on_station(self.station):
-            print("Заряжаюсь...")
+            # print("Заряжаюсь...")
             return
-        if self.robot.check_front(self.barriers) > self.robot.view_distance:
+        if self.steps_remaining > 0:
+            self.steps_remaining -= FORWARD_STEP
             self.robot.forward(FORWARD_STEP)
-            print("Вижу цель, не вижу препятствий...")
+            print("Вперед")
             return
         else:
+            check_res = self.robot.check_front(self.barriers)
+            self.steps_remaining = min(check_res, self.robot.view_distance) // FORWARD_STEP
+
+        if self.steps_remaining < self.robot.radius // FORWARD_STEP:
             self.robot.rotate(LEFT_ROTATE)
-            print("Эх.. Впереди преграда. Иду налево")
+            print("Налево")
             return
 
     def update_and_get_state(self):

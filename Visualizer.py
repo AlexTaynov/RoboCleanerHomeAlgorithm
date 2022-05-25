@@ -1,3 +1,6 @@
+from __future__ import annotations
+import threading
+
 import pygame
 from pygame.surface import SurfaceType, Surface
 from pygame.time import Clock
@@ -17,6 +20,7 @@ class Visualizer:
     WIDTH = 360
     HEIGHT = 480
     FPS = 60
+    LOADING_FPS = 3
     screen: Surface | SurfaceType
     clock: Clock
 
@@ -54,6 +58,13 @@ class Visualizer:
                 iter_number += 1
         pygame.quit()
 
+    def calc(self, states, data_loader):
+        while True:
+            state = data_loader()
+            states.append(state)
+            if state.is_stop():
+                return
+
     def load_data(self, data_loader):
         font = pygame.font.SysFont('Garamond', 30)
 
@@ -70,20 +81,21 @@ class Visualizer:
         states = []
 
         Event1 = pygame.event.Event(pygame.USEREVENT, attr1='Event1')
+        th = threading.Thread(target=self.calc, args=[states, data_loader], daemon=True)
+        th.start()
 
         while running:
             for event in pygame.event.get():
                 if event == Event1:
                     running = False
-            self.clock.tick(self.FPS)
+            self.clock.tick(self.LOADING_FPS)
             self.screen.fill(WHITE)
             self.screen.blit(text[i], textRect)
             pygame.display.flip()
             i = (i + 1) % 3
 
-            state = data_loader()
-            states.append(state)
-            if state.is_stop():
+            if not th.is_alive():
                 pygame.event.post(Event1)
-        return states
 
+        th.join()
+        return states
