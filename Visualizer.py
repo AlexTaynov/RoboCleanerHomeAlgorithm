@@ -17,7 +17,7 @@ BLUE = (0, 0, 255)
 
 
 class Visualizer:
-    FPS = 60
+    FPS = 40
     screen: Surface | SurfaceType
     clock: Clock
 

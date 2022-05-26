@@ -24,12 +24,12 @@ class Strategy:
         if self.robot.on_station(self.station):
             # print("Заряжаюсь...")
             return
-        if self.robot.check_front(self.barriers) > self.robot.radius/2:
+        if min(self.robot.check_front(self.barriers)) > self.robot.view_distance/2:
             self.robot.forward(FORWARD_STEP)
             print("Вперед")
             return
         else:
-            self.robot.rotate(LEFT_ROTATE)
+            self.robot.rotate(self.robot.get_angle_to_station(self.station))
             print("Налево")
             return
 

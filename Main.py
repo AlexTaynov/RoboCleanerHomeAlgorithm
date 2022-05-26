@@ -17,7 +17,7 @@ if __name__ == "__main__":
     w3 = Wall([WIDTH, HEIGHT], [WIDTH, 0])
     w4 = Wall([WIDTH, 0], [0, 0])
     b = [Barrier([w1, w2, w3, w4])]
-    st = Station(350, 470)
+    st = Station(200, 200)
     strategy = Strategy(robot, st, b)
     visualizer = Visualizer(WIDTH, HEIGHT)
     visualizer.visualize(strategy, robot, b, st)

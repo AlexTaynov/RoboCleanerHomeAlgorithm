@@ -16,7 +16,7 @@ class Robot:
         self.y = y
         self.x = x
         self.angle = angle
-        self.view_distance = view_distance
+        self.view_distance = view_distance + radius
         self.radius = radius
 
     def forward(self, dist):
@@ -26,19 +26,25 @@ class Robot:
     def rotate(self, angle):
         self.angle += angle
 
-    def check_front(self, barriers: [Barrier]) -> float:
+    def __check_front__(self, phi: float, barriers: [Barrier]) -> float:
         retval = 1000000000
         for barrier in barriers:
             for wall in barrier.walls:
                 p1, p2 = wall.start_point, wall.finish_point
-                p3, p4 = self.get_view_vector()
+                p3, p4 = [self.x, self.y], [self.x + math.cos(self.angle + phi) * self.view_distance,
+                                            self.y + math.sin(self.angle + phi) * self.view_distance]
                 point = util.intersection(p1, p2, p3, p4)
                 if point:
                     retval = min(retval, distance(point, [self.x, self.y]))
         return retval
 
+    def check_front(self, barriers: [Barrier]):
+        return self.__check_front__(-math.pi / 4, barriers), \
+               self.__check_front__(0, barriers), \
+               self.__check_front__(math.pi / 4, barriers)
+
     def get_angle_to_station(self, station: Station):
-        x, y = matrix_rotate(station.x - self.x, station.y - self.y, self.angle)
+        x, y = matrix_rotate(station.x - self.x, station.y - self.y, -self.angle)
         return math.atan2(y, x)
 
     def get_view_vector(self):
