@@ -1,8 +1,7 @@
-from sympy import Point
-
-
 class Station:
-    position: Point
+    x: float
+    y: float
 
-    def __init__(self, point: Point):
-        self.position = point
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y

@@ -1,9 +1,8 @@
 import math
-from sympy import Point, Line, Segment
-import poly_point_isect
 
 import Barrier
 from Station import Station
+import util
 
 
 class Robot:
@@ -29,31 +28,34 @@ class Robot:
 
     def check_front(self, barriers: [Barrier]) -> float:
         retval = 1000000000
-        segments = []
         for barrier in barriers:
             for wall in barrier.walls:
-                segments.append(wall.start_point.coordinates)
-                segments.append(wall.finish_point.coordinates)
-        points1 = poly_point_isect.isect_polygon(segments)
-        segments.append((self.x, self.y))
-        segments.append(
-            (self.x + math.cos(self.angle) * self.view_distance, self.y + math.sin(self.angle) * self.view_distance))
-        points2 = poly_point_isect.isect_polygon(segments)
-        points2 = list(set(points2) - set(points1))
-        for point in points2:
-            retval = min(retval, ((point[0] - self.x) ** 2 + (point[1] - self.y) ** 2) ** 0.5)
+                p1, p2 = wall.start_point, wall.finish_point
+                p3, p4 = self.get_view_vector()
+                point = util.intersection(p1, p2, p3, p4)
+                if point:
+                    retval = min(retval, distance(point, [self.x, self.y]))
         return retval
 
     def get_angle_to_station(self, station: Station):
-        toStationVec = Line(Point(self.x, self.y), station.position)
-        return float(toStationVec.angle_between(self.get_view_vector()))
+        x, y = matrix_rotate(station.x - self.x, station.y - self.y, self.angle)
+        return math.atan2(y, x)
 
     def get_view_vector(self):
-        return Segment(Point(self.x, self.y), Point(self.x + math.cos(self.angle) * self.view_distance,
-                                                    self.y + math.sin(self.angle) * self.view_distance))
+        return [[self.x, self.y], [self.x + math.cos(self.angle) * self.view_distance,
+                                   self.y + math.sin(self.angle) * self.view_distance]]
 
     def on_station(self, station: Station) -> bool:
-        return Point(self.x, self.y).distance(station.position) <= self.radius
+        return distance([station.x, station.y], [self.x, self.y]) <= self.radius
+
+
+def distance(p1: list, p2: list):
+    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
+
+
+def matrix_rotate(x, y, phi):
+    return x * math.cos(phi) - y * math.sin(phi), \
+           x * math.sin(phi) + y * math.cos(phi)
 
 
 class RobotState:
@@ -62,7 +64,7 @@ class RobotState:
     angle: float
     view_distance: float
     radius: float
-    view_vector: Segment
+    view_vector: [[float]]
     onStation: bool
 
     def __init__(self, robot: Robot, st: Station):

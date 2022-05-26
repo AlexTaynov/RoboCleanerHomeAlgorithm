@@ -1,4 +1,5 @@
 # Pygame шаблон - скелет для нового проекта Pygame
+import math
 
 from Barrier import *
 from Strategy import Strategy
@@ -11,16 +12,12 @@ if __name__ == "__main__":
     HEIGHT = 480
 
     robot = Robot(50, 50, 0, view_distance=30, radius=20)
-    w1 = Wall(Point(0, 0), Point(0, HEIGHT))
-    w2 = Wall(Point(0, HEIGHT), Point(WIDTH, HEIGHT))
-    w3 = Wall(Point(WIDTH, HEIGHT), Point(WIDTH, 0))
-    w4 = Wall(Point(WIDTH, 0), Point(0, 0))
+    w1 = Wall([0, 0], [0, HEIGHT])
+    w2 = Wall([0, HEIGHT], [WIDTH, HEIGHT])
+    w3 = Wall([WIDTH, HEIGHT], [WIDTH, 0])
+    w4 = Wall([WIDTH, 0], [0, 0])
     b = [Barrier([w1, w2, w3, w4])]
-    st = Station(Point(20, 50))
+    st = Station(350, 470)
     strategy = Strategy(robot, st, b)
-    visualizer = Visualizer()
-    data_loader = lambda: strategy.update_and_get_state()
-
-    robot_states = visualizer.load_data(data_loader)
-
-    visualizer.visualize(robot_states, b, st)
+    visualizer = Visualizer(WIDTH, HEIGHT)
+    visualizer.visualize(strategy, robot, b, st)
