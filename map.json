@@ -8,49 +8,116 @@
             "y": 0
           },
           "finish_point": {
-            "x": 1,
-            "y": 1
+            "x": 0,
+            "y": 480
           }
         },
         {
           "start_point": {
-            "x": 1,
-            "y": 1
+            "x": 0,
+            "y": 480
           },
           "finish_point": {
-            "x": 2,
+            "x": 360,
+            "y": 480
+          }
+        },
+        {
+          "start_point": {
+            "x": 360,
+            "y": 480
+          },
+          "finish_point": {
+            "x": 360,
             "y": 0
           }
-        }
-      ]
-    },
-    {
-      "walls": [
+        },
         {
           "start_point": {
-            "x": 2,
-            "y": 2
+            "x": 360,
+            "y": 0
           },
           "finish_point": {
-            "x": 3,
-            "y": 3
+            "x": 0,
+            "y": 0
           }
         },
         {
           "start_point": {
-            "x": 3,
-            "y": 3
+            "x": 150,
+            "y": 150
           },
           "finish_point": {
-            "x": 2,
-            "y": 3
+            "x": 360,
+            "y": 150
+          }
+        },
+        {
+          "start_point": {
+            "x": 250,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 250,
+            "y": 100
+          }
+        },
+        {
+          "start_point": {
+            "x": 1,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 100,
+            "y": 150
+          }
+        },
+        {
+          "start_point": {
+            "x": 1,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 120,
+            "y": 200
+          }
+        },
+        {
+          "start_point": {
+            "x": 100,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 120,
+            "y": 200
+          }
+        },
+        {
+          "start_point": {
+            "x": 330,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 330,
+            "y": 300
+          }
+        },
+        {
+          "start_point": {
+            "x": 150,
+            "y": 350
+          },
+          "finish_point": {
+            "x": 360,
+            "y": 350
           }
         }
       ]
     }
   ],
   "station": {
-    "x": 0,
-    "y": 1
+    "x": 230,
+    "y": 450
   }
+
 }

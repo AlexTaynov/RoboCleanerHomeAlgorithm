@@ -15,12 +15,12 @@ if __name__ == "__main__":
 
     print('//////')
 
-    st = Station(1.5, -1.5)  # +
+    st = Station(5, 1)  # +
     print(r.get_view_vector())  # +
     print(r.get_angle_to_station(st))  # + возвращаем float
     r.rotate(r.get_angle_to_station(st))
     print(r.get_angle_to_station(st))
-    assert (st.x == 1.5 and st.y == -1.5 and abs(r.get_angle_to_station(st)) < 1e-15)
+    assert (st.x == 1 and st.y == 5 and abs(r.get_angle_to_station(st)) < 1e-15)
 
     r1 = Robot(7, 1, -math.pi/2, 5, 2)
     w1 = Wall([5, -1], [5, 1])

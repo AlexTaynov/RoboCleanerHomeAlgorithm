@@ -1,11 +1,17 @@
+import math
+import numpy as np
+
+
 def line(p1, p2):
     A = (p1[1] - p2[1])
     B = (p2[0] - p1[0])
     C = (p1[0] * p2[1] - p2[0] * p1[1])
     return A, B, -C
 
+
 def sps(s1: [float], s2: [float]):
     return s1[0] * s2[0] + s1[1] * s2[1]
+
 
 def intersection(p1, p2, p3, p4):
     L1 = line(p1, p2)
