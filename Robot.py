@@ -35,7 +35,8 @@ class Robot:
                                             self.y + math.sin(self.angle + phi) * self.view_distance]
                 point = util.intersection(p1, p2, p3, p4)
                 if point:
-                    retval = min(retval, distance(point, [self.x, self.y]))
+                    retval = min(retval, distance(point, [self.x + math.cos(self.angle) * self.radius,
+                                                          self.y + math.sin(self.angle) * self.radius]))
         return retval
 
     def check_front(self, barriers: [Barrier]):

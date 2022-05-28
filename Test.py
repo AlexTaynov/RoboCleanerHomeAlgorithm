@@ -20,7 +20,7 @@ if __name__ == "__main__":
     print(r.get_angle_to_station(st))  # + возвращаем float
     r.rotate(r.get_angle_to_station(st))
     print(r.get_angle_to_station(st))
-    assert (st.x == 1.5 and st.y == 1.5 and r.get_angle_to_station(st) == 0)
+    assert (st.x == 1.5 and st.y == -1.5 and abs(r.get_angle_to_station(st)) < 1e-15)
 
     r1 = Robot(7, 1, -math.pi/2, 5, 2)
     w1 = Wall([5, -1], [5, 1])
@@ -31,4 +31,4 @@ if __name__ == "__main__":
     # print(b.walls)
     print(r1.check_front([b]))  # +
 
-    print(r1.on_station(Station(2, 0.05)))
+    assert (r1.on_station(Station(2, 0.05)) == False)

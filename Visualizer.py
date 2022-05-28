@@ -14,10 +14,11 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+BLEDNO_GREY = (200, 200, 200)
 
 
 class Visualizer:
-    FPS = 40
+    FPS = 60
     screen: Surface | SurfaceType
     clock: Clock
 
@@ -39,9 +40,10 @@ class Visualizer:
 
             self.screen.fill(WHITE)
             strategy.update_and_get_state()
+            pygame.draw.line(self.screen, BLEDNO_GREY, robot.get_view_vector()[0], robot.get_view_vector()[1], 2)
             pygame.draw.circle(self.screen, BLUE, (robot.x, robot.y), robot.radius)
             pygame.draw.circle(self.screen, RED, (station.x, station.y), robot.radius // 2)
-            pygame.draw.line(self.screen, BLUE, robot.get_view_vector()[0], robot.get_view_vector()[1], 5)
+
             for bar in barriers:
                 for wall in bar.walls:
                     pygame.draw.line(self.screen, GREEN, wall.start_point, wall.finish_point, 5)
