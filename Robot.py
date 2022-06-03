@@ -52,6 +52,10 @@ class Robot:
         return [[self.x, self.y], [self.x + math.cos(self.angle) * self.view_distance,
                                    self.y + math.sin(self.angle) * self.view_distance]]
 
+    def get_pomp_coord(self):
+        return [self.x - math.cos(self.angle) * self.radius // 2,
+                self.y - math.sin(self.angle) * self.radius // 2]
+
     def on_station(self, station: Station) -> bool:
         return distance([station.x, station.y], [self.x, self.y]) <= self.radius
 

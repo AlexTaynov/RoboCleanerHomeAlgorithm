@@ -6,8 +6,8 @@ import Station
 import Barrier
 
 FORWARD_STEP = 1
-LEFT_ROTATE = -math.pi / 50
-RIGHT_ROTATE = math.pi / 45
+LEFT_ROTATE = -math.pi / 180
+RIGHT_ROTATE = math.pi / 170
 
 
 class Strategy:
@@ -32,11 +32,11 @@ class Strategy:
             return
 
         if self.rotateCnt > 10:
-            self.robot.rotate(3 * LEFT_ROTATE)
+            self.robot.rotate(math.pi / 2)
             self.rotateCnt = 0
             return
 
-        if min(self.robot.check_front(self.barriers)) > self.robot.view_distance / 4:
+        if min(self.robot.check_front(self.barriers)) > self.robot.radius:
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
             print("Вперед")
@@ -63,7 +63,7 @@ class Strategy:
             self.touchWall = False
             return
 
-        if min(view) > self.robot.view_distance / 4:
+        if min(view) > max(self.robot.view_distance / 2, self.robot.radius):
             self.robot.forward(FORWARD_STEP)
             print("Вперед")
             self.rotateCnt = 0
