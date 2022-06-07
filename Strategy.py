@@ -70,9 +70,9 @@ class Strategy:
                 1e-10):
             rotate_angle = self.robot.get_angle_to_station(self.station)
             if rotate_angle > 0:
-                rotate_angle = min(rotate_angle, self.reverse_rotate * to_radians(90))
+                rotate_angle = min(rotate_angle, self.reverse_rotate * to_radians(75))
             else:
-                rotate_angle = min(rotate_angle, self.reverse_rotate * to_radians(-90))
+                rotate_angle = max(rotate_angle, self.reverse_rotate * to_radians(-75))
             self.reverse_rotate = 1
             self.forward_cnt = 0
             self.flag = 0
@@ -88,10 +88,6 @@ class Strategy:
         else:
             self.touchWall = True
             rotate_angle = self.robot.get_angle_to_station(self.station)
-            if rotate_angle > 0:
-                rotate_angle = to_radians(90)
-            else:
-                rotate_angle = to_radians(-90)
             self.robot.rotate(rotate_angle)
             self.turn_over_cnt += rotate_angle
             self.prevRotate = 0
