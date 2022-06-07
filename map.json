@@ -111,6 +111,46 @@
             "x": 180,
             "y": 300
           }
+        },
+        {
+          "start_point": {
+            "x": 70,
+            "y": 50
+          },
+          "finish_point": {
+            "x": 100,
+            "y": 50
+          }
+        },
+        {
+          "start_point": {
+            "x": 100,
+            "y": 50
+          },
+          "finish_point": {
+            "x": 100,
+            "y": 70
+          }
+        },
+        {
+          "start_point": {
+            "x": 100,
+            "y": 70
+          },
+          "finish_point": {
+            "x": 70,
+            "y": 70
+          }
+        },
+        {
+          "start_point": {
+            "x": 70,
+            "y": 70
+          },
+          "finish_point": {
+            "x": 70,
+            "y": 50
+          }
         }
       ]
     }

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import random
+
 import pygame
 from SecretColors import Palette
 from pygame.surface import SurfaceType, Surface
@@ -16,7 +18,9 @@ class Visualizer:
     FPS = 60
     screen: Surface | SurfaceType
     clock: Clock
-    randomBackground = palette.random_balanced()
+    randomBackground = random.choice(
+        [palette.purple(), palette.indigo(), palette.lime(), palette.cyan(), palette.orange(), palette.yellow(),
+         palette.blue(), palette.amber(), palette.white(), palette.violet()])
 
     def __init__(self, WIDTH, HEIGHT):
         pygame.init()
@@ -41,7 +45,7 @@ class Visualizer:
                                width=1)
             pygame.draw.circle(self.screen, self.palette.black(), (station.x, station.y), robot.radius // 2, width=1)
             i = (i + 0.3) % 10
-            pygame.draw.line(self.screen, self.palette.gray(), robot.get_view_vector()[0], robot.get_view_vector()[1], 2)
+            # pygame.draw.line(self.screen, self.palette.gray(), robot.get_view_vector()[0], robot.get_view_vector()[1], 2)
             pygame.draw.circle(self.screen, self.palette.gray_cool(), (robot.x, robot.y), robot.radius)
             pygame.draw.circle(self.screen, self.palette.black(), robot.get_pomp_coord(), robot.radius // 4)
             pygame.draw.circle(self.screen, self.palette.black(), (robot.x, robot.y), robot.radius, width=1)
