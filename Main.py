@@ -4,7 +4,7 @@ from Robot import Robot
 from Visualizer import Visualizer
 
 if __name__ == "__main__":
-    WIDTH = 360
+    WIDTH = 854
     HEIGHT = 480
 
     robot = Robot(350, 320, 0, view_distance=15, radius=15)
