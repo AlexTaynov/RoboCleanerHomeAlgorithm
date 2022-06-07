@@ -44,31 +44,71 @@
         },
         {
           "start_point": {
+            "x": 150,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 360,
+            "y": 150
+          }
+        },
+        {
+          "start_point": {
+            "x": 250,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 250,
+            "y": 100
+          }
+        },
+        {
+          "start_point": {
+            "x": 1,
+            "y": 150
+          },
+          "finish_point": {
             "x": 100,
+            "y": 150
+          }
+        },
+        {
+          "start_point": {
+            "x": 1,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 120,
+            "y": 200
+          }
+        },
+        {
+          "start_point": {
+            "x": 100,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 120,
+            "y": 200
+          }
+        },
+        {
+          "start_point": {
+            "x": 330,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 330,
+            "y": 300
+          }
+        },
+        {
+          "start_point": {
+            "x": 150,
             "y": 350
           },
           "finish_point": {
-            "x": 100,
-            "y": 250
-          }
-        },
-        {
-          "start_point": {
-            "x": 0,
-            "y": 250
-          },
-          "finish_point": {
-            "x": 300,
-            "y": 250
-          }
-        },
-        {
-          "start_point": {
-            "x": 300,
-            "y": 250
-          },
-          "finish_point": {
-            "x": 300,
+            "x": 360,
             "y": 350
           }
         }
@@ -76,7 +116,7 @@
     }
   ],
   "station": {
-    "x": 180,
-    "y": 100
+    "x": 340,
+    "y": 340
   }
 }

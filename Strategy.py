@@ -13,6 +13,7 @@ RIGHT_ROTATE = math.pi / 180
 class Strategy:
     robot: Robot
     forward_cnt: int = 0
+    cnt: int = 1
     station: Station
     barriers: [Barrier]
     touchWall: bool = False
@@ -51,22 +52,24 @@ class Strategy:
             if rotate_angle > 0:
                 rotate_angle = min(rotate_angle, math.pi / 180 * 90)
             else:
-                rotate_angle = max(rotate_angle, math.pi / 180 * 90)
+                rotate_angle = max(rotate_angle, -math.pi / 180 * 90)
             print(rotate_angle * 180 / math.pi)
             self.forward_cnt = 0
+            self.cnt = 0
             self.robot.rotate(rotate_angle)
 
         if min(view_barriers_distances) > self.robot.radius:
             self.robot.forward(FORWARD_STEP)
-            #self.robot.rotate(self.robot.get_angle_to_station(self.station))
             self.rotateCnt = 0
-            self.forward_cnt += 1
+            self.forward_cnt += self.cnt
             return
 
         else:
             self.touchWall = True
+            self.robot.rotate(self.robot.get_angle_to_station(self.station))
             self.prevRotate = 0
             self.rotateCnt += 1
+            self.cnt = 1
             return
 
     def update_and_get_state(self):
@@ -94,7 +97,7 @@ class Strategy:
             self.robot.rotate(rotate_angle)
             return
 
-        if view_barriers_distances[0] > self.robot.view_distance and view_barriers_distances[2] > self.robot.view_distance:
+        if view_barriers_distances[0] > self.robot.view_distance and view_barriers_distances[-1] > self.robot.view_distance:
             self.robot.rotate(LEFT_ROTATE)
             self.prevRotate = -1
             return
@@ -103,7 +106,7 @@ class Strategy:
         #     self.touchWall = False
         #     return
 
-        if view_barriers_distances[0] <= view_barriers_distances[2]:
+        if view_barriers_distances[0] <= view_barriers_distances[-1]:
             self.rotateCnt += 1
             self.robot.rotate(RIGHT_ROTATE)
             self.prevRotate = 1
