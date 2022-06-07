@@ -36,6 +36,9 @@ class Strategy:
             self.reverse_rotate = -1
             self.turn_over_cnt = 0
 
+        if abs(self.turn_over_cnt * 180 / math.pi) - 720 > 0.5:
+            self.turn_over_cnt = 0
+
         if self.robot.on_station(self.station):
             return
 
@@ -56,19 +59,19 @@ class Strategy:
         #     return
 
         if (self.forward_cnt > self.robot.radius * 2 + 1) and abs(self.robot.get_angle_to_station(self.station)) > (
-        1e-10):
+                1e-10):
             rotate_angle = self.robot.get_angle_to_station(self.station)
             if rotate_angle > 0:
-                rotate_angle = min(rotate_angle, self.reverse_rotate * math.pi / 180 * 90)
+                rotate_angle = self.reverse_rotate * math.pi / 180 * 90
             else:
-                rotate_angle = max(rotate_angle, self.reverse_rotate * -math.pi / 180 * 90)
+                rotate_angle = self.reverse_rotate * -math.pi / 180 * 90
             self.reverse_rotate = 1
             self.forward_cnt = 0
             self.semafor = 0
             self.turn_over_cnt += rotate_angle
             self.robot.rotate(rotate_angle)
 
-        if min(view_barriers_distances) > self.robot.radius:
+        if min(view_barriers_distances) > self.robot.radius / 5:
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
             self.forward_cnt += self.semafor
@@ -76,8 +79,13 @@ class Strategy:
 
         else:
             self.touchWall = True
-            self.robot.rotate(self.robot.get_angle_to_station(self.station))
-            self.turn_over_cnt += self.robot.get_angle_to_station(self.station)
+            rotate_angle = self.robot.get_angle_to_station(self.station)
+            if rotate_angle > 0:
+                rotate_angle = math.pi / 180 * 90
+            else:
+                rotate_angle = -math.pi / 180 * 90
+            self.robot.rotate(rotate_angle)
+            self.turn_over_cnt += rotate_angle
             self.prevRotate = 0
             self.rotateCnt += 1
             self.semafor = 1
