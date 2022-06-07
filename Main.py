@@ -7,7 +7,7 @@ if __name__ == "__main__":
     WIDTH = 854
     HEIGHT = 480
 
-    robot = Robot(350, 320, 0, view_distance=15, radius=15)
+    robot = Robot(840, 470, 0, view_distance=15, radius=15)
     mapper = JSON_util("map.json")
     st = mapper.get_station()
     b = mapper.get_barriers()

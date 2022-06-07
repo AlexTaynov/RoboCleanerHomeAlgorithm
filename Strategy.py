@@ -1,4 +1,5 @@
 import math
+import random
 import time
 
 import Robot
@@ -78,8 +79,9 @@ class Strategy:
             self.flag = 0
             self.turn_over_cnt += rotate_angle
             self.robot.rotate(rotate_angle)
+            return
 
-        if min(view_barriers_distances) > self.robot.radius * 0.75:
+        if min(view_barriers_distances) > self.robot.radius * 0.9:
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
             self.forward_cnt += self.flag
@@ -88,9 +90,22 @@ class Strategy:
         else:
             self.touchWall = True
             rotate_angle = self.robot.get_angle_to_station(self.station)
-            self.robot.rotate(rotate_angle)
-            self.turn_over_cnt += rotate_angle
-            self.prevRotate = 0
+            if abs(to_degree(rotate_angle)) > 130:
+                self.robot.rotate(rotate_angle)
+                self.turn_over_cnt += rotate_angle
+                self.prevRotate = 0
+                self.flag = 1
+                return
+
+            if view_barriers_distances[0] <= view_barriers_distances[-1]:
+                self.rotateCnt += 1
+                self.robot.rotate(RIGHT_ROTATE)
+                self.turn_over_cnt += RIGHT_ROTATE
+                self.prevRotate = 1
+            else:
+                self.robot.rotate(LEFT_ROTATE)
+                self.turn_over_cnt += LEFT_ROTATE
+                self.prevRotate = -1
             self.rotateCnt += 1
             self.flag = 1
             return
@@ -109,7 +124,7 @@ class Strategy:
             self.prevRotate = 0
             return
 
-        if self.robot.radius < min(view_barriers_distances):
+        if self.robot.radius * 0.9 < min(view_barriers_distances):
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
             self.prevRotate = 0

@@ -1,6 +1,3 @@
-import math
-import numpy as np
-
 
 def line(p1, p2):
     A = (p1[1] - p2[1])
