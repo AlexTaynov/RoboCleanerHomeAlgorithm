@@ -57,7 +57,7 @@ class Robot:
                 self.y - math.sin(self.angle) * self.radius // 2]
 
     def on_station(self, station: Station) -> bool:
-        return distance([station.x, station.y], [self.x, self.y]) <= self.radius
+        return distance([station.x, station.y], [self.x, self.y]) <= 1.5 * self.radius
 
 
 def distance(p1: list, p2: list):
