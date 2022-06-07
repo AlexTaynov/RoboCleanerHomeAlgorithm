@@ -52,7 +52,7 @@ class Strategy:
                 rotate_angle = min(rotate_angle, math.pi / 180 * 90)
             else:
                 rotate_angle = max(rotate_angle, math.pi / 180 * 90)
-            #print(rotate_angle * 180 / math.pi)
+            print(rotate_angle * 180 / math.pi)
             self.forward_cnt = 0
             self.robot.rotate(rotate_angle)
 
