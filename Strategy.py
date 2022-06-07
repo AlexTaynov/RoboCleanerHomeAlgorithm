@@ -10,10 +10,18 @@ LEFT_ROTATE = -math.pi / 180
 RIGHT_ROTATE = math.pi / 180
 
 
+def to_degree(radians):
+    return radians * 180 / math.pi
+
+
+def to_radians(degree):
+    return degree * math.pi / 180
+
+
 class Strategy:
     robot: Robot
     forward_cnt: int = 0
-    semafor: int = 1
+    flag: int = 1
     reverse_rotate: int = 1
     turn_over_cnt: int = 0
     station: Station
@@ -30,13 +38,13 @@ class Strategy:
 
     def update(self):
 
-        print(self.turn_over_cnt * 180 / math.pi)
+        # print(to_degree(self.turn_over_cnt))
 
-        if abs(abs(self.turn_over_cnt * 180 / math.pi) - 720) < 0.5:
+        if abs(abs(to_degree(self.turn_over_cnt)) - 720) < 0.5:
             self.reverse_rotate = -1
             self.turn_over_cnt = 0
 
-        if abs(self.turn_over_cnt * 180 / math.pi) - 720 > 0.5:
+        if abs(to_degree(self.turn_over_cnt)) - 720 > 0.5:
             self.turn_over_cnt = 0
 
         if self.robot.on_station(self.station):
@@ -62,33 +70,33 @@ class Strategy:
                 1e-10):
             rotate_angle = self.robot.get_angle_to_station(self.station)
             if rotate_angle > 0:
-                rotate_angle = self.reverse_rotate * math.pi / 180 * 90
+                rotate_angle = min(rotate_angle, self.reverse_rotate * to_radians(90))
             else:
-                rotate_angle = self.reverse_rotate * -math.pi / 180 * 90
+                rotate_angle = min(rotate_angle, self.reverse_rotate * to_radians(-90))
             self.reverse_rotate = 1
             self.forward_cnt = 0
-            self.semafor = 0
+            self.flag = 0
             self.turn_over_cnt += rotate_angle
             self.robot.rotate(rotate_angle)
 
         if min(view_barriers_distances) > self.robot.radius / 5:
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
-            self.forward_cnt += self.semafor
+            self.forward_cnt += self.flag
             return
 
         else:
             self.touchWall = True
             rotate_angle = self.robot.get_angle_to_station(self.station)
             if rotate_angle > 0:
-                rotate_angle = math.pi / 180 * 90
+                rotate_angle = to_radians(90)
             else:
-                rotate_angle = -math.pi / 180 * 90
+                rotate_angle = to_radians(-90)
             self.robot.rotate(rotate_angle)
             self.turn_over_cnt += rotate_angle
             self.prevRotate = 0
             self.rotateCnt += 1
-            self.semafor = 1
+            self.flag = 1
             return
 
     def update_and_get_state(self):
