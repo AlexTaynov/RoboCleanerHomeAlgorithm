@@ -79,7 +79,7 @@ class Strategy:
             self.turn_over_cnt += rotate_angle
             self.robot.rotate(rotate_angle)
 
-        if min(view_barriers_distances) > self.robot.radius / 5:
+        if min(view_barriers_distances) > self.robot.radius * 0.75:
             self.robot.forward(FORWARD_STEP)
             self.rotateCnt = 0
             self.forward_cnt += self.flag
