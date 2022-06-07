@@ -48,11 +48,12 @@ class Strategy:
 
         if (self.forward_cnt > self.robot.radius * 2 + 1) and abs(self.robot.get_angle_to_station(self.station)) > (1e-10):
             rotate_angle = self.robot.get_angle_to_station(self.station)
-            print(rotate_angle * 180 / math.pi)
             if rotate_angle > 0:
                 rotate_angle = min(rotate_angle, math.pi / 180 * 90)
             else:
                 rotate_angle = max(rotate_angle, math.pi / 180 * 90)
+            print(rotate_angle * 180 / math.pi)
+            self.forward_cnt = 0
             self.robot.rotate(rotate_angle)
 
         if min(view_barriers_distances) > self.robot.radius:
