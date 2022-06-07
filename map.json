@@ -18,7 +18,7 @@
             "y": 480
           },
           "finish_point": {
-            "x": 360,
+            "x": 854,
             "y": 480
           }
         },
@@ -29,12 +29,42 @@
           },
           "finish_point": {
             "x": 360,
+            "y": 440
+          }
+        },
+        {
+          "start_point": {
+            "x": 854,
             "y": 0
+          },
+          "finish_point": {
+            "x": 854,
+            "y": 480
           }
         },
         {
           "start_point": {
             "x": 360,
+            "y": 400
+          },
+          "finish_point": {
+            "x": 360,
+            "y": 220
+          }
+        },
+        {
+          "start_point": {
+            "x": 360,
+            "y": 160
+          },
+          "finish_point": {
+            "x": 360,
+            "y": 0
+          }
+        },
+        {
+          "start_point": {
+            "x": 854,
             "y": 0
           },
           "finish_point": {
@@ -191,12 +221,103 @@
             "x": 70,
             "y": 400
           }
+        },
+        {
+          "start_point": {
+            "x": 250,
+            "y": 40
+          },
+          "finish_point": {
+            "x": 300,
+            "y": 100
+          }
+        },
+        {
+          "start_point": {
+            "x": 100,
+            "y": 400
+          },
+          "finish_point": {
+            "x": 70,
+            "y": 400
+          }
+        },
+        {
+          "start_point": {
+            "x": 400,
+            "y": 10
+          },
+          "finish_point": {
+            "x": 410,
+            "y": 70
+          }
+        },
+        {
+          "start_point": {
+            "x": 700,
+            "y": 0
+          },
+          "finish_point": {
+            "x": 700,
+            "y": 100
+          }
+        },
+        {
+          "start_point": {
+            "x": 700,
+            "y": 150
+          },
+          "finish_point": {
+            "x": 700,
+            "y": 350
+          }
+        },
+        {
+          "start_point": {
+            "x": 700,
+            "y": 200
+          },
+          "finish_point": {
+            "x": 600,
+            "y": 200
+          }
+        },
+        {
+          "start_point": {
+            "x": 600,
+            "y": 200
+          },
+          "finish_point": {
+            "x": 600,
+            "y": 400
+          }
+        },
+        {
+          "start_point": {
+            "x": 600,
+            "y": 400
+          },
+          "finish_point": {
+            "x": 480,
+            "y": 400
+          }
+        },
+        {
+          "start_point": {
+            "x": 480,
+            "y": 0
+          },
+          "finish_point": {
+            "x": 480,
+            "y": 300
+          }
         }
+
       ]
     }
   ],
   "station": {
-    "x": 190,
+    "x": 780,
     "y": 30
   }
 }

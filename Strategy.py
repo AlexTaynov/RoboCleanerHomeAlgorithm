@@ -38,7 +38,10 @@ class Strategy:
 
     def update(self):
 
-        # print(to_degree(self.turn_over_cnt))
+        print(to_degree(self.turn_over_cnt))
+
+        if self.robot.on_station(self.station):
+            return
 
         if abs(abs(to_degree(self.turn_over_cnt)) - 720) < 0.5:
             self.reverse_rotate = -1
@@ -46,9 +49,6 @@ class Strategy:
 
         if abs(to_degree(self.turn_over_cnt)) - 720 > 0.5:
             self.turn_over_cnt = 0
-
-        if self.robot.on_station(self.station):
-            return
 
         if self.touchWall:
             self.goTouchingWall()
